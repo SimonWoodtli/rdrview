@@ -19,14 +19,16 @@ COPY --from=ghcr.io/simonwoodtli/rdrview:latest /bin/rdrview /where/You/Want
 ```
 docker build -t alpine-rdrview -f- . <<EOF
 FROM alpine:latest
-COPY --from=ghcr.io/simonwoodtli/rdrview:latest /bin/rdrview
-/bin/rdrview
+COPY --from=ghcr.io/simonwoodtli/rdrview:latest /bin/rdrview /bin/rdrview
 EOF
 ```
 
 2. Copy rdrview to your host: 
 
 ```
-docker run --rm -v $HOME/.local/bin:/mnt alpine-rdrview sh -c "install
-/bin/rdrview /mnt"
+docker run --rm -v $HOME/.local/bin:/mnt alpine-rdrview sh -c "install /bin/rdrview /mnt"
 ```
+
+Related:
+
+* https://github.com/eafer/rdrview
