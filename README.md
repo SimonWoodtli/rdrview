@@ -6,6 +6,8 @@ This image contains the current rdrview binary.
 
 ## Installation
 
+> ⚠ Checkout the required dependencies on maintainers repo [here] and install them.
+
 ### CI/Image Install
 
 ```
@@ -17,18 +19,32 @@ COPY --from=ghcr.io/simonwoodtli/rdrview:latest /bin/rdrview /where/You/Want
 1. Build image: 
 
 ```
-docker build -t alpine-rdrview -f- . <<EOF
+podman build -t alpine-rdrview -f- . <<EOF
 FROM alpine:latest
 COPY --from=ghcr.io/simonwoodtli/rdrview:latest /bin/rdrview /bin/rdrview
 EOF
 ```
 
-2. Copy rdrview to your host: 
+2. Run container in detached mode:
 
 ```
-docker run --rm -v $HOME/.local/bin:/mnt alpine-rdrview sh -c "install /bin/rdrview /mnt"
+podman run -dt localhost/alpine-rdrview
+```
+
+3. Get Container ID:
+
+```
+podman ps
+```
+
+4. Copy rdrview to your host: 
+
+```
+podman cp <containerId>:/bin/rdrview /where/You/Want
 ```
 
 Related:
 
 * https://github.com/eafer/rdrview
+
+[here]: <https://github.com/eafer/rdrview>
